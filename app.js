@@ -3,11 +3,12 @@
 
 const express=require("express");
 const handle=require("./handle");
+
 app=express();
 admin=express();//admin is a sub app
 app.locals.title="Fist Express App";//can be used in every other file of the app
 app.use("/admin",admin);
-
+app.set("view engine","ejs")
 
 admin.on("mount",(parent)=>{
     console.log(parent);
@@ -43,6 +44,15 @@ app.get("/users/:id",(req,res)=>{
     res.send("This is the end");
 })
 
+
+app.route("/aboutus").
+get((req,res)=>{
+    console.log("Hello");
+    res.render("about");
+}).post((req,res)=>{
+    console.log("Hello");
+    res.send("I am Abid POST");
+});
 app.listen(3000,()=>{
     console.log("listening on port 3000")
 });
