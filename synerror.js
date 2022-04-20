@@ -8,7 +8,7 @@ admin=express();
 
 
 
-app.get("/",(req,res)=>{
+app.get("/",(req,res,next)=>{
    for(i=0;i<10;i++)
    {
        if(i==5)
