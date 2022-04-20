@@ -1,13 +1,29 @@
 const express=require("express");
+const { diskStorage } = require("multer");
 const multer = require("multer");
+const path = require("path");
 const handle=require("./handle");
 
 
 
 const uplo="G:/Express/uploads";
 
+const storage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,uplo);
+    },
+    filename:(req,file,cb)=>{
+        const ext=path.extname(file.originalname);
+        const fileNa=file.originalname.replace(ext,"").split(" ").join("-")+"-"+Date.now();
+        cb(null,fileNa+ext);
+
+
+
+    }
+})
+
 var up=multer({
-    dest:uplo,
+    storage:storage,
     limits:100000,
     fileFilter:(req,file,cb)=>{
         console.log(file);
